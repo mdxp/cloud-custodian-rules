@@ -1,0 +1,20 @@
+policies:
+- name: account-cloudtrail-enabled
+  resource: account
+  description: |
+    Checks to make sure CloudTrail is enabled on the account
+    for all regions and notifies.
+  filters:
+     - type: check-cloudtrail
+       global-events: true
+       multi-region: true
+       running: true
+       file-digest: true
+  actions:
+        - type: notify
+          subject: Cloud Custodian - CloudTrail Not Enabled!!!
+          to:
+                - CloudCustodianAlerts@Company.com
+          transport:
+                type: sqs
+                queue: https://sqs.us-west-2.amazonaws.com/12345678900/cloud-custodian-mailer
