@@ -1,0 +1,10 @@
+policies:
+- name: unused-aws-keys
+  resource: iam-user
+  filters:
+    - type: credential
+      key: access_keys.last_used_date
+      value: absent
+    - type: credential
+      key: access_keys.active
+      value: true
