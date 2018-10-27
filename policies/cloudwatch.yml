@@ -1,0 +1,18 @@
+policies:
+  - name: cloudwatch-set-log-group-retention
+    resource: log-group
+    filters:
+      - type: value
+        key: "retentionInDays"
+        value: absent
+    actions:
+      - type: retention
+        days: 60
+
+  - name: log-group-gc
+    resource: log-group
+    filters:
+       - type: last-write
+         days: 120
+    actions:
+       - type: delete
