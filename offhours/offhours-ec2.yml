@@ -1,0 +1,26 @@
+policies:
+  - name: offhour_stop
+    resource: ec2
+    comments: |
+      Daily stoppage at 7pm
+    filters:
+      - tag:aws:autoscaling:groupName: absent
+      - type: offhour
+        tag: downtime
+        offhour: 19
+        default_tz: pdt
+    actions:
+      - stop
+
+  - name: onhour_start
+    resource: ec2
+    comments: |
+      Daily start at 7am
+    filters:
+      - tag:aws:autoscaling:groupName: absent
+      - type: onhour
+        tag: downtime
+        onhour: 7
+        default_tz: pdt
+    actions:
+      - start

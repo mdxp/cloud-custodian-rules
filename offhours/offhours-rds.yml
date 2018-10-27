@@ -1,0 +1,24 @@
+policies:
+  - name: offhour_rds_stop
+    resource: rds
+    comments: |
+      Daily stoppage at 7pm
+    filters:
+      - type: offhour
+        tag: OffHours
+        offhour: 16
+        default_tz: pdt
+    actions:
+      - stop
+
+  - name: onhour_rds_start
+    resource: rds
+    comments: |
+      Daily start at 7am
+    filters:
+      - type: onhour
+        tag: OffHours
+        onhour: 7
+        default_tz: pdt
+    actions:
+      - start
